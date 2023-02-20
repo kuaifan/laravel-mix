@@ -25,6 +25,7 @@ interface MixConfig {
     hmrOptions?: {
         host: string;
         port: string;
+        publicURL?: string
     };
 
     /** Determine if we should enable https on hot reloading. */

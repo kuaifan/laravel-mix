@@ -104,9 +104,14 @@ class WebpackConfig {
 
         // TODO: Centralize this code between HotReloading and here…
         // It's duplicated
-        const { https, host, port } = this.mix.config.hmrOptions;
+        const { https, host, port, publicURL } = this.mix.config.hmrOptions;
         const protocol = https ? 'https' : 'http';
         const url = `${protocol}://${host}:${port}/`;
+
+        let webSocketURL = {hostname: host, pathname: '/ws', port}
+        if (publicURL) {
+            webSocketURL = publicURL.replace(/^http(s*):/i, "ws$1:")
+        }
 
         this.webpackConfig.output = {
             ...this.webpackConfig.output,
@@ -119,11 +124,7 @@ class WebpackConfig {
             port,
 
             client: {
-                webSocketURL: {
-                    hostname: host,
-                    pathname: '/ws',
-                    port
-                }
+                webSocketURL
             },
 
             liveReload: false,

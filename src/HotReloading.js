@@ -17,11 +17,11 @@ class HotReloading {
             return;
         }
 
-        const { https, host, port } = this.mix.config.hmrOptions;
+        const { https, host, port, publicURL } = this.mix.config.hmrOptions;
         const protocol = https ? 'https' : 'http';
         const url = `${protocol}://${host}:${port}`;
 
-        this.hotFile().write(url);
+        this.hotFile().write(publicURL || url);
 
         process.on('exit', () => this.clean());
         process.on('SIGINT', () => this.clean());
