@@ -110,7 +110,7 @@ class WebpackConfig {
 
         let webSocketURL = {hostname: host, pathname: '/ws', port}
         if (publicURL) {
-            webSocketURL = publicURL.replace(/^http(s*):/i, "ws$1:")
+            webSocketURL = publicURL.replace(/^http(s*):/i, "ws$1:") + '/ws'
         }
 
         this.webpackConfig.output = {
